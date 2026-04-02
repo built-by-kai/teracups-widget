@@ -5,56 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
 <title>Tera Cup</title>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
   --bg: transparent;
-  --card: rgba(255,255,255,0.05);
+  --surface: rgba(255,255,255,0.05);
   --border: rgba(255,255,255,0.08);
-  --text: #e8e8e8;
-  --muted: rgba(255,255,255,0.28);
+  --text: #f0f0f0;
+  --muted: rgba(255,255,255,0.35);
+  --dim: rgba(255,255,255,0.2);
   --lime: #c8f542;
   --sky: #7dd3fc;
   --green: #6ee7b7;
   --rose: #fca5a5;
   --amber: #fcd34d;
+  --purple: #c4b5fd;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --card: rgba(0,0,0,0.04);
+    --surface: rgba(0,0,0,0.04);
     --border: rgba(0,0,0,0.08);
     --text: #111;
-    --muted: rgba(0,0,0,0.35);
-    --lime: #5a8a00;
+    --muted: rgba(0,0,0,0.4);
+    --dim: rgba(0,0,0,0.25);
+    --lime: #4d7a00;
     --sky: #0369a1;
     --green: #047857;
-    --rose: #b91c1c;
+    --rose: #be123c;
     --amber: #92400e;
+    --purple: #6d28d9;
   }
 }
 
-html {
-  color-scheme: dark light;
-  background: var(--bg);
-}
-
-body {
+html, body {
   background: transparent;
   color: var(--text);
-  font-family: 'Geist', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 13px;
 }
 
 .w {
-  padding: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
+/* ── TOP BAR ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ts {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.refresh-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.refresh-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.18); }
+.refresh-btn.spinning .icon { display: inline-block; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── KPI GRID ── */
 .kpi-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -62,9 +100,9 @@ body {
 }
 
 .kpi {
-  background: var(--card);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 16px;
 }
 
@@ -76,11 +114,12 @@ body {
 }
 
 .kpi-label {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'Syne', sans-serif;
   font-size: 9px;
-  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  color: var(--muted);
 }
 
 .dot {
@@ -90,30 +129,32 @@ body {
   flex-shrink: 0;
 }
 
-.dot-lime  { background: var(--lime); }
-.dot-sky   { background: var(--sky); }
-.dot-green { background: var(--green); }
-.dot-rose  { background: var(--rose); }
+.dot-lime   { background: var(--lime); }
+.dot-sky    { background: var(--sky); }
+.dot-green  { background: var(--green); }
+.dot-rose   { background: var(--rose); }
 
 .kpi-val {
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
   line-height: 1;
+  letter-spacing: -0.02em;
   margin-bottom: 5px;
 }
 
-.kpi-val.lime  { color: var(--lime); }
-.kpi-val.sky   { color: var(--sky); }
-.kpi-val.green { color: var(--green); }
-.kpi-val.rose  { color: var(--rose); }
+.kpi-val.lime   { color: var(--lime); }
+.kpi-val.sky    { color: var(--sky); }
+.kpi-val.green  { color: var(--green); }
+.kpi-val.rose   { color: var(--rose); }
 
 .kpi-sub {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  color: var(--dim);
 }
 
+/* ── PANELS ── */
 .bottom-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -121,44 +162,52 @@ body {
 }
 
 .panel {
-  background: var(--card);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
 .panel-head {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.badge {
-  font-family: 'Geist Mono', monospace;
+.panel-title {
+  font-family: 'Syne', sans-serif;
   font-size: 9px;
-  padding: 1px 7px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
   border-radius: 20px;
   background: rgba(200,245,66,0.1);
   color: var(--lime);
+  letter-spacing: 0.04em;
 }
 
+/* bars */
 .bar-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 14px;
+  padding: 8px 14px;
   border-bottom: 1px solid var(--border);
 }
 .bar-row:last-child { border-bottom: none; }
 
 .bar-label {
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   color: var(--muted);
   width: 90px;
@@ -183,19 +232,21 @@ body {
 }
 
 .bar-n {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--muted);
   width: 14px;
   text-align: right;
   flex-shrink: 0;
 }
 
+/* attention */
 .att-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 14px;
+  padding: 9px 14px;
   border-bottom: 1px solid var(--border);
 }
 .att-row:last-child { border-bottom: none; }
@@ -203,6 +254,7 @@ body {
 .att-info { flex: 1; min-width: 0; }
 
 .att-name {
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
@@ -211,60 +263,44 @@ body {
 }
 
 .att-co {
+  font-family: 'DM Sans', sans-serif;
   font-size: 10px;
-  color: var(--muted);
+  color: var(--dim);
   margin-top: 1px;
 }
 
 .pill {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'Syne', sans-serif;
   font-size: 9px;
-  padding: 2px 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
   border-radius: 20px;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-.pill-rose  { background: rgba(252,165,165,0.12); color: var(--rose); }
-.pill-amber { background: rgba(252,211,77,0.12);  color: var(--amber); }
+.pill-rose  { background: rgba(252,165,165,0.1); color: var(--rose); }
+.pill-amber { background: rgba(252,211,77,0.1);  color: var(--amber); }
 
 .empty {
-  padding: 20px 14px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: var(--muted);
+  padding: 22px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--dim);
   text-align: center;
 }
-
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ts {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: var(--muted);
-}
-
-.btn {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: var(--muted);
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 3px 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  transition: all 0.15s;
-}
-.btn:hover { opacity: 0.7; }
 </style>
 </head>
 <body>
 <div class="w">
+
+  <div class="topbar">
+    <div class="ts" id="ts">—</div>
+    <button class="refresh-btn" id="refreshBtn" onclick="load()">
+      <span class="icon">↻</span> Refresh
+    </button>
+  </div>
 
   <div class="kpi-row">
     <div class="kpi">
@@ -304,37 +340,33 @@ body {
   <div class="bottom-row">
     <div class="panel">
       <div class="panel-head">
-        By Stage
+        <div class="panel-title">By Stage</div>
         <span class="badge" id="b-stage">—</span>
       </div>
       <div id="funnel"><div class="empty">Loading...</div></div>
     </div>
     <div class="panel">
       <div class="panel-head">
-        Needs Attention
+        <div class="panel-title">Needs Attention</div>
         <span class="badge" id="b-att">—</span>
       </div>
       <div id="attention"><div class="empty">Loading...</div></div>
     </div>
   </div>
 
-  <div class="footer">
-    <div class="ts" id="ts">—</div>
-    <button class="btn" onclick="load()">↻ Refresh</button>
-  </div>
-
 </div>
 <script>
 const DB    = '35c8b289e31a8223925981d295b8d721';
 const TOKEN = 'ntn_M79742547174mXMZHHPnekbvFQCTHMnVhPn4XL4pYNYfhA';
+const REFRESH_INTERVAL = 60000; // auto-refresh every 60s
 
 const STAGES = ['Lead','Contacted','Qualified','Proposal Sent','Negotiation'];
 const COLORS = {
-  'Lead':         '#666',
-  'Contacted':    '#7dd3fc',
-  'Qualified':    '#fcd34d',
-  'Proposal Sent':'#c8f542',
-  'Negotiation':  '#a78bfa',
+  'Lead':          'rgba(255,255,255,0.2)',
+  'Contacted':     '#7dd3fc',
+  'Qualified':     '#fcd34d',
+  'Proposal Sent': '#c8f542',
+  'Negotiation':   '#c4b5fd',
 };
 
 function rm(v) {
@@ -371,13 +403,13 @@ function parse(pages) {
   return pages.map(p => {
     const pr = p.properties;
     return {
-      name:          pr['Name']?.title?.[0]?.plain_text || '—',
-      company:       pr['Company']?.rich_text?.[0]?.plain_text || '',
-      funnel:        pr['Funnel']?.status?.name || '',
-      orderValue:    pr['Order Value']?.number || 0,
-      nextFollowup:  pr['Next Follow-up']?.date?.start || null,
-      lastContacted: pr['Last Contacted']?.date?.start || null,
-      needsAttention:pr['Needs Attention?']?.formula?.boolean || false,
+      name:           pr['Name']?.title?.[0]?.plain_text || '—',
+      company:        pr['Company']?.rich_text?.[0]?.plain_text || '',
+      funnel:         pr['Funnel']?.status?.name || '',
+      orderValue:     pr['Order Value']?.number || 0,
+      nextFollowup:   pr['Next Follow-up']?.date?.start || null,
+      lastContacted:  pr['Last Contacted']?.date?.start || null,
+      needsAttention: pr['Needs Attention?']?.formula?.boolean || false,
     };
   });
 }
@@ -404,17 +436,19 @@ function render(records) {
   document.getElementById('s-won').textContent      = `${wonMonth.length} deal${wonMonth.length!==1?'s':''} closed`;
   document.getElementById('v-att').textContent      = att.length;
 
-  // Funnel
+  // Funnel bars
   const sc = {};
   STAGES.forEach(s => sc[s] = 0);
   active.forEach(r => { if (sc[r.funnel] !== undefined) sc[r.funnel]++; });
   const maxS  = Math.max(...Object.values(sc), 1);
-  const total = Object.values(sc).reduce((a,b)=>a+b,0);
+  const total = Object.values(sc).reduce((a,b) => a+b, 0);
   document.getElementById('b-stage').textContent = total;
   document.getElementById('funnel').innerHTML = STAGES.map(s => `
     <div class="bar-row">
       <div class="bar-label">${s}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(sc[s]/maxS)*100}%;background:${COLORS[s]}"></div></div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(sc[s]/maxS)*100}%;background:${COLORS[s]}"></div>
+      </div>
       <div class="bar-n">${sc[s]}</div>
     </div>
   `).join('');
@@ -422,10 +456,10 @@ function render(records) {
   // Attention
   document.getElementById('b-att').textContent = att.length;
   if (att.length === 0) {
-    document.getElementById('attention').innerHTML = '<div class="empty">✓ All clear</div>';
+    document.getElementById('attention').innerHTML = '<div class="empty">✓ All follow-ups on track</div>';
   } else {
     document.getElementById('attention').innerHTML = att.slice(0,6).map(r => {
-      const diff = r.nextFollowup ? Math.round((now - new Date(r.nextFollowup)) / 86400000) : 0;
+      const diff      = r.nextFollowup ? Math.round((now - new Date(r.nextFollowup)) / 86400000) : 0;
       const pillClass = diff > 2 ? 'pill-rose' : 'pill-amber';
       const label     = diff > 0 ? `${diff}d overdue` : 'today';
       return `
@@ -445,7 +479,12 @@ function render(records) {
     t.toLocaleTimeString('en-MY',{hour:'2-digit',minute:'2-digit'});
 }
 
+function setSpinning(on) {
+  document.getElementById('refreshBtn').classList.toggle('spinning', on);
+}
+
 async function load() {
+  setSpinning(true);
   try {
     render(parse(await fetchAll()));
   } catch(e) {
@@ -459,9 +498,12 @@ async function load() {
       {name:'Hafiz Azman',company:'Makan Corner',funnel:'Closed-Won',orderValue:4500,nextFollowup:null,lastContacted:new Date().toISOString(),needsAttention:false},
     ]);
   }
+  setSpinning(false);
 }
 
+// Init + auto-refresh every 60s
 load();
+setInterval(load, REFRESH_INTERVAL);
 </script>
 </body>
 </html>
